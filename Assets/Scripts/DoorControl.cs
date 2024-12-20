@@ -5,7 +5,6 @@ using UnityEngine;
 public class DoorControl : MonoBehaviour
 {
     public GameObject door;
-
     public float timer;
     private void OnTriggerEnter(Collider other)
     {

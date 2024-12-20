@@ -4,30 +4,22 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    //Directional Inputs
-    [SerializeField] private Vector2 lookDirection;
-    [SerializeField] private Vector3 moveDirection;
+    [SerializeField] private MoveAbility moveAbility;
+    [SerializeField] private LookAbility lookAbility;
+    [SerializeField] private ShootingAbility shootAbility;
+    [SerializeField] private JumpAbility jumpAbility;
+    [SerializeField] private InteractAbility interactAbility;
 
-    //Reference to the controller
-    [SerializeField] private CharacterController controller;
+    //Directional Inputs
+    private Vector2 lookDirection;
+
     //Reference to the Head/Camera GameObject
-    [SerializeField] private Camera head;
+
+    [SerializeField] private CharacterController controller;
 
     [SerializeField] private float mouseSensitivity;
 
-    //Movement Settings
-    [SerializeField] private float movementSpeed;
 
-    //Gravity and Jumping Settings
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float gravityForce;
-
-    [SerializeField] private LayerMask groundLayer;
-
-    [Header("Shooting Settings")]
-    [SerializeField] private Transform weaponTip;
-    [SerializeField] private Rigidbody projectilePrefab;
-    [SerializeField] private float shootingForce;
     void Start()
     {
         //Control of Mouse Cursor
@@ -38,63 +30,41 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        lookDirection.x += Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
-        lookDirection.y += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivity;
 
-        float angleOnY = lookDirection.y;
-        lookDirection.y = Mathf.Clamp(angleOnY, -80, 80);
-
-        
-        head.transform.localRotation = Quaternion.Euler(-lookDirection.y, 0, 0);
-        transform.rotation = Quaternion.Euler(0, lookDirection.x, 0);
-
-
-
-        moveDirection.x = Input.GetAxis("Horizontal");
-        moveDirection.z = Input.GetAxis("Vertical");
-
-        Vector3 forwardMovement = moveDirection.z * transform.forward;
-        Vector3 sidewaysMovement = moveDirection.x * transform.right;
-
-        Vector3 movementVector = (forwardMovement + sidewaysMovement);
-
-
-        bool isOnGround = Physics.CheckSphere(transform.position, 0.01f, groundLayer);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            gravityForce = jumpForce;
-            isOnGround = false;
+            jumpAbility.Jump();
+
         }
 
-        controller.Move(movementVector * Time.deltaTime * movementSpeed);
-        
+        if (moveAbility != null)
+        {
+            Vector3 moveDir = new Vector3();
+            moveDir.x = Input.GetAxis("Horizontal");
+            moveDir.z = Input.GetAxis("Vertical");
+            moveAbility.Move(moveDir);
+        }
 
-        //Gravity is handled here
-        if (!isOnGround)
+        if(lookAbility)
         {
-            //Adding constant gravity every second 
-            gravityForce += -10f * Time.deltaTime;
-            //Apply that movement per second
-            controller.Move(Vector3.up * gravityForce * Time.deltaTime);
+            lookDirection.x += Input.GetAxis("Mouse X") * Time.deltaTime * mouseSensitivity;
+            lookDirection.y += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSensitivity;
+
+            float angleOnY = lookDirection.y;
+            lookDirection.y = Mathf.Clamp(angleOnY, -80, 80);
+
+            lookAbility.Look(lookDirection);
         }
-        else
+
+        if (shootAbility != null && Input.GetMouseButtonDown(0))
         {
-            //Reset gravity once we get to the floor
-            gravityForce = 0;
+            shootAbility.Shoot();
         }
-        
-        if(Input.GetMouseButtonDown(0))
+
+        if(interactAbility && Input.GetKeyDown(KeyCode.F))
         {
-            Rigidbody clonedRigidbody = Instantiate(projectilePrefab, weaponTip.position, weaponTip.rotation);
-            clonedRigidbody.AddForce(weaponTip.forward * shootingForce);
+            interactAbility.Interact();
         }
     }
 
-    //Testing the sphere location
-    private void OnDrawGizmos()
-    {
-        //Drawing a sphere right at the feet of the player
-        Gizmos.DrawSphere(transform.position, 0.1f);
-    }
 }
