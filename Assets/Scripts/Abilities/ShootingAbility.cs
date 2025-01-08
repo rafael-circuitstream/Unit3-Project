@@ -8,16 +8,10 @@ public class ShootingAbility : MonoBehaviour
     [SerializeField] private Rigidbody projectilePrefab;
     [SerializeField] private float shootingForce;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void UnlockAbility()
     {
-        
+        //i can work here
     }
 
     public void Shoot()

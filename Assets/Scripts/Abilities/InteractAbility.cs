@@ -6,6 +6,7 @@ public class InteractAbility : MonoBehaviour
 {
     [SerializeField] private Transform interactionTip;
     [SerializeField] private LayerMask interactionFilter;
+    [SerializeField] private GrabbingAbility grabbingAbility;
 
     // Update is called once per frame
     public void Interact()
@@ -15,10 +16,15 @@ public class InteractAbility : MonoBehaviour
 
         if (!Physics.Raycast(customRay, out tempHit, 5f, interactionFilter)) return;
 
-        Debug.Log("I hit " + tempHit.collider.name);
-
-        Destroy(tempHit.collider.gameObject);
-        Debug.DrawRay(interactionTip.position, interactionTip.forward * 5f, Color.green);
+        IInteractable interactFeature = tempHit.collider.GetComponent<IInteractable>();
+        if(interactFeature != null)
+        {
+            interactFeature.StartInteraction();
+        }
+        else
+        {
+            grabbingAbility.PickUpObject(tempHit.rigidbody);
+        }
     }
 
 }

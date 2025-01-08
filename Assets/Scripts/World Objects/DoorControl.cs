@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorControl : MonoBehaviour
 {
+    [SerializeField] private bool lockDoorAfterExit;
+
     public GameObject door;
     public float timer;
     private void OnTriggerEnter(Collider other)
@@ -34,7 +36,12 @@ public class DoorControl : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if(lockDoorAfterExit)
+        {
+            door.SetActive(true);
+        }
+
         timer = 0;
-        door.SetActive(true);
+        
     }
 }
