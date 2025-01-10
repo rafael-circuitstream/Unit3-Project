@@ -14,15 +14,20 @@ public class InteractAbility : MonoBehaviour
         Ray customRay = new Ray(interactionTip.position, interactionTip.forward);
         RaycastHit tempHit;
 
-        if (!Physics.Raycast(customRay, out tempHit, 5f, interactionFilter)) return;
+        if (!Physics.Raycast(customRay, out tempHit, 5f, interactionFilter))
+        {
+            grabbingAbility.DropDownObject();
+            return;
+        }
 
         IInteractable interactFeature = tempHit.collider.GetComponent<IInteractable>();
         if(interactFeature != null)
         {
             interactFeature.StartInteraction();
         }
-        else
+        else if(tempHit.rigidbody)
         {
+
             grabbingAbility.PickUpObject(tempHit.rigidbody);
         }
     }

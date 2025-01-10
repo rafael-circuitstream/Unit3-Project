@@ -8,6 +8,12 @@ public class ShootingAbility : MonoBehaviour
     [SerializeField] private Rigidbody projectilePrefab;
     [SerializeField] private float shootingForce;
 
+    ObjectPooling objectPoolingCache;
+
+    private void Awake()
+    {
+        objectPoolingCache = FindObjectOfType<ObjectPooling>();
+    }
 
     public void UnlockAbility()
     {
@@ -16,7 +22,15 @@ public class ShootingAbility : MonoBehaviour
 
     public void Shoot()
     {
-        Rigidbody clonedRigidbody = Instantiate(projectilePrefab, weaponTip.position, weaponTip.rotation);
+
+        Rigidbody clonedRigidbody = objectPoolingCache.RetrieveAvailableBullet().GetRigidbody();
+
+        if (clonedRigidbody == null) return;
+
+        clonedRigidbody.position = weaponTip.position;
+        clonedRigidbody.rotation = weaponTip.rotation;
+
+        //Rigidbody clonedRigidbody = Instantiate(projectilePrefab, weaponTip.position, weaponTip.rotation);
         clonedRigidbody.AddForce(weaponTip.forward * shootingForce);
     }
 }
