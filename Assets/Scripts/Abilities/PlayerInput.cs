@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    //SINGLETON PATTERN
+    public static PlayerInput Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    //SINGLETON PATTERN
+
     [SerializeField] private MoveAbility moveAbility;
     [SerializeField] private LookAbility lookAbility;
     [SerializeField] private ShootingAbility shootAbility;
@@ -20,8 +35,15 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float mouseSensitivity;
 
 
+
+
     void Start()
     {
+        GetComponent<HealthSystem>().OnDead += () => 
+        {
+            this.enabled = false;
+        };
+
         //Control of Mouse Cursor
         Cursor.visible = false; //Visibility to hidden
         Cursor.lockState = CursorLockMode.Locked; //Locked to the center of the screen
