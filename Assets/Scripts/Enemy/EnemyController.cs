@@ -16,11 +16,17 @@ public class EnemyController : MonoBehaviour
 
     public Transform _player;
 
+    private void Awake()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+        _currentState = new EnemyIdleState(this);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _agent= GetComponent<NavMeshAgent>();
-        _currentState = new EnemyIdleState(this);
+        
+        
         _currentState.OnStateEnter();
     }
 

@@ -24,13 +24,13 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private ShootingAbility shootAbility;
     [SerializeField] private JumpAbility jumpAbility;
     [SerializeField] private InteractAbility interactAbility;
+    [SerializeField] private CommanderAbility commandAbility;
 
     //Directional Inputs
     private Vector2 lookDirection;
 
     //Reference to the Head/Camera GameObject
 
-    [SerializeField] private CharacterController controller;
 
     [SerializeField] private float mouseSensitivity;
 
@@ -86,6 +86,11 @@ public class PlayerInput : MonoBehaviour
         if(interactAbility && Input.GetKeyDown(KeyCode.F))
         {
             interactAbility.Interact();
+        }
+
+        if(commandAbility && Input.GetMouseButtonDown(1))
+        {
+            commandAbility.Command();
         }
     }
 
