@@ -342,7 +342,6 @@ MonoBehaviour:
   jumpAbility: {fileID: 1631136118395714606}
   interactAbility: {fileID: 196616683112176681}
   commandAbility: {fileID: 5368310098340217872}
-  controller: {fileID: 2586716376277399183}
   mouseSensitivity: 150
 --- !u!114 &3126485098097496589
 MonoBehaviour:
@@ -415,7 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 241
   controller: {fileID: 2586716376277399183}
   gravityAcceleration: -9.81
 --- !u!114 &196616683112176681
@@ -433,7 +432,7 @@ MonoBehaviour:
   interactionTip: {fileID: 7117902615254693808}
   interactionFilter:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 507
   grabbingAbility: {fileID: 7002312031203053728}
 --- !u!114 &7002312031203053728
 MonoBehaviour:
@@ -448,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdingHand: {fileID: 1464535887127750568}
-  syncStrength: 0
+  syncStrength: 100
 --- !u!54 &1059674655356378568
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -492,6 +491,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   companion: {fileID: 0}
+  waypointPrefab: {fileID: 0}
 --- !u!1 &4253049313859404475
 GameObject:
   m_ObjectHideFlags: 0

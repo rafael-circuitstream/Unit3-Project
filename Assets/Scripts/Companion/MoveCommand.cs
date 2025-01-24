@@ -7,7 +7,6 @@ public class MoveCommand : Command
     private Vector3 target;
     public override void Cancel()
     {
-       
     }
     
     public override void Execute()
@@ -19,19 +18,11 @@ public class MoveCommand : Command
 
     public override bool IsCommandComplete()
     {
-        //if (!companionController.GetNavMeshAgent().isStopped) return false;
         
-        return Vector3.Distance(target, companionController.transform.position) > 1f;
-
-        //if (Vector3.Distance(companionController.GetNavMeshAgent().destination, target) < 0.1f)
-        //{
-        //    return companionController.GetNavMeshAgent().remainingDistance < 0.01f;
-        //}    
-        //else
-        //{
-        //    return false;
-        //}
-            
+        float distance = Vector3.Distance(target, companionController.transform.position);
+        Debug.Log(companionController.GetNavMeshAgent().remainingDistance);
+        
+        return Vector3.Distance(target, companionController.transform.position) < 0.4f;
     }
 
     public MoveCommand(Vector3 position)

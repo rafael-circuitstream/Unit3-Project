@@ -143,7 +143,6 @@ MonoBehaviour:
   unlockWithAnyObject: 0
   correctRigidbodies:
   - {fileID: 0}
-  - {fileID: 0}
   OnPressureStart:
     m_PersistentCalls:
       m_Calls:

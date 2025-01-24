@@ -821,7 +821,7 @@ PrefabInstance:
     - target: {fileID: 3623679028525595216, guid: 00fd6e2c3106c49429af0e1632760ea5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3623679028525595216, guid: 00fd6e2c3106c49429af0e1632760ea5,
         type: 3}
@@ -3852,12 +3852,12 @@ PrefabInstance:
     - target: {fileID: 4251986963865078776, guid: 42128dcba5f145442be1400fedcc3a15,
         type: 3}
       propertyPath: m_AutoBraking
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4251986963865078776, guid: 42128dcba5f145442be1400fedcc3a15,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839822711641011121, guid: 42128dcba5f145442be1400fedcc3a15,
         type: 3}
@@ -3872,7 +3872,7 @@ PrefabInstance:
     - target: {fileID: 7351304614685944034, guid: 42128dcba5f145442be1400fedcc3a15,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.81
+      value: 0.018
       objectReference: {fileID: 0}
     - target: {fileID: 7351304614685944034, guid: 42128dcba5f145442be1400fedcc3a15,
         type: 3}
